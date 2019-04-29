@@ -111,6 +111,19 @@ public class MarkwonTheme {
             2.F, 1.5F, 1.17F, 1.F, .83F, .67F,
     };
 
+    private static final int[] HEADING_COLORS = {
+            0, 0, 0, 0, 0, 0
+    };
+
+    private static final Paint.Align[] HEADING_ALIGNS = {
+            Paint.Align.LEFT,
+            Paint.Align.LEFT,
+            Paint.Align.LEFT,
+            Paint.Align.LEFT,
+            Paint.Align.LEFT,
+            Paint.Align.LEFT,
+    };
+
     protected static final int THEMATIC_BREAK_DEF_ALPHA = 25;
 
     protected final int linkColor;
@@ -175,6 +188,10 @@ public class MarkwonTheme {
     // @since 1.1.0
     protected final float[] headingTextSizeMultipliers;
 
+    protected final int[] headingColors;
+
+    protected final Paint.Align[] headingAligns;
+
     // by default textColor with `THEMATIC_BREAK_DEF_ALPHA` applied alpha
     protected final int thematicBreakColor;
 
@@ -202,6 +219,8 @@ public class MarkwonTheme {
         this.headingBreakColor = builder.headingBreakColor;
         this.headingTypeface = builder.headingTypeface;
         this.headingTextSizeMultipliers = builder.headingTextSizeMultipliers;
+        this.headingColors = builder.headingColors;
+        this.headingAligns = builder.headingAligns;
         this.thematicBreakColor = builder.thematicBreakColor;
         this.thematicBreakHeight = builder.thematicBreakHeight;
     }
@@ -418,6 +437,26 @@ public class MarkwonTheme {
                     "Supplied heading level: %d is invalid, where configured heading sizes are: `%s`",
                     level, Arrays.toString(textSizes)));
         }
+
+        final int[] colors = headingColors != null ? headingColors : HEADING_COLORS;
+        if (colors != null && colors.length >= level) {
+            paint.setColor(colors[level]);
+        } else {
+            throw new IllegalStateException(String.format(
+                    Locale.US,
+                    "Supplied heading level: %d is invalid, where configured heading colors are: `%s`",
+                    level, Arrays.toString(colors)));
+        }
+
+        final Paint.Align[] aligns = headingAligns != null ? headingAligns : HEADING_ALIGNS;
+        if (aligns != null && aligns.length >= level) {
+            paint.setTextAlign(aligns[level]);
+        } else {
+            throw new IllegalStateException(String.format(
+                    Locale.US,
+                    "Supplied heading level: %d is invalid, where configured heading align are: `%s`",
+                    level, Arrays.toString(aligns)));
+        }
     }
 
     public void applyHeadingBreakStyle(@NonNull Paint paint) {
@@ -474,6 +513,8 @@ public class MarkwonTheme {
         private int headingBreakColor;
         private Typeface headingTypeface;
         private float[] headingTextSizeMultipliers;
+        private int[] headingColors;
+        private Paint.Align[] headingAligns;
         private int thematicBreakColor;
         private int thematicBreakHeight = -1;
 
@@ -499,6 +540,8 @@ public class MarkwonTheme {
             this.headingBreakColor = theme.headingBreakColor;
             this.headingTypeface = theme.headingTypeface;
             this.headingTextSizeMultipliers = theme.headingTextSizeMultipliers;
+            this.headingColors = theme.headingColors;
+            this.headingAligns = theme.headingAligns;
             this.thematicBreakColor = theme.thematicBreakColor;
             this.thematicBreakHeight = theme.thematicBreakHeight;
         }
@@ -646,6 +689,18 @@ public class MarkwonTheme {
         @NonNull
         public Builder headingTextSizeMultipliers(@Size(6) @NonNull float[] headingTextSizeMultipliers) {
             this.headingTextSizeMultipliers = headingTextSizeMultipliers;
+            return this;
+        }
+
+        @NonNull
+        public Builder headingColors(@Size(6) @NonNull int[] headingColors) {
+            this.headingColors = headingColors;
+            return this;
+        }
+
+        @NonNull
+        public Builder headingAligns(@Size(6) @NonNull Paint.Align[] headingAligns) {
+            this.headingAligns = headingAligns;
             return this;
         }
 
