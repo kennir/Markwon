@@ -67,6 +67,11 @@ public class SpannableBuilder implements Appendable, CharSequence {
         copySpans(0, cs);
     }
 
+    @NonNull
+    public StringBuilder getStringBuilder() {
+        return builder;
+    }
+
     /**
      * Additional method that takes a String, which is proven to NOT contain any spans
      *

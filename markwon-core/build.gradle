@@ -22,7 +22,7 @@ dependencies {
 
     deps['test'].with {
 
-        testImplementation project(':markwon-test-span')
+        testImplementation project(':github:markwon:markwon-test-span')
 
         testImplementation it['junit']
         testImplementation it['robolectric']

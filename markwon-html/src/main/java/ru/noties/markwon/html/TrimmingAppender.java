@@ -2,6 +2,7 @@ package ru.noties.markwon.html;
 
 import android.support.annotation.NonNull;
 
+import static ru.noties.markwon.html.AppendableUtils.appendNewLine;
 import static ru.noties.markwon.html.AppendableUtils.appendQuietly;
 
 abstract class TrimmingAppender {
@@ -55,7 +56,12 @@ abstract class TrimmingAppender {
                 }
 
                 previousIsWhiteSpace = false;
-                appendQuietly(output, c);
+
+                if (c == '\n') {
+                    appendNewLine(output);
+                } else {
+                    appendQuietly(output, c);
+                }
             }
 
             // additionally check if previousIsWhiteSpace is true (if data ended with ws)

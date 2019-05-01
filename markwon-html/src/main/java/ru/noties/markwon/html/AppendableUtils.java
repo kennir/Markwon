@@ -30,6 +30,27 @@ abstract class AppendableUtils {
         }
     }
 
+    static <T extends Appendable & CharSequence> void appendNewLine(@NonNull T output){
+        final int MAX_REPEATED_NEWLINE_ALLOWED = 2;
+
+        boolean repeated = true;
+
+        final int length = output.length();
+        if (length > MAX_REPEATED_NEWLINE_ALLOWED) {
+            for (int i = 0; i < MAX_REPEATED_NEWLINE_ALLOWED; i++) {
+                if (output.charAt(length - i - 1) != '\n') {
+                    repeated = false;
+                    break;
+                }
+            }
+
+            if (!repeated) {
+                appendQuietly(output, '\n');
+            }
+        }
+    }
+
+
     private AppendableUtils() {
     }
 }

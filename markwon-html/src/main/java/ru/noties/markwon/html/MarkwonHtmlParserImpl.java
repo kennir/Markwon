@@ -23,6 +23,7 @@ import ru.noties.markwon.html.jsoup.parser.ParseErrorList;
 import ru.noties.markwon.html.jsoup.parser.Token;
 import ru.noties.markwon.html.jsoup.parser.Tokeniser;
 
+import static ru.noties.markwon.html.AppendableUtils.appendNewLine;
 import static ru.noties.markwon.html.AppendableUtils.appendQuietly;
 
 /**
@@ -246,9 +247,12 @@ public class MarkwonHtmlParserImpl extends MarkwonHtmlParser {
                 || startTag.selfClosing) {
 
             final String replacement = emptyTagReplacement.replace(inline);
-            if (replacement != null
-                    && replacement.length() > 0) {
-                appendQuietly(output, replacement);
+            if (replacement != null && replacement.length() > 0) {
+                if (replacement.equals("\n")) {
+                    appendNewLine(output);
+                } else {
+                    appendQuietly(output, replacement);
+                }
             }
 
             // the thing is: we will keep this inline tag in the list,
@@ -293,7 +297,8 @@ public class MarkwonHtmlParserImpl extends MarkwonHtmlParser {
             // it must be closed here not matter what we are as here we _assume_
             // that it's a block tag
             currentBlock.closeAt(output.length());
-            appendQuietly(output, '\n');
+//            appendQuietly(output, '\n');
+            appendNewLine(output);
             currentBlock = currentBlock.parent;
         } else if (TAG_LIST_ITEM.equals(name)
                 && TAG_LIST_ITEM.equals(currentBlock.name)) {
@@ -358,7 +363,8 @@ public class MarkwonHtmlParserImpl extends MarkwonHtmlParser {
             }
 
             if (TAG_PARAGRAPH.equals(name)) {
-                appendQuietly(output, '\n');
+//                appendQuietly(output, '\n');
+                appendNewLine(output);
             }
 
             this.currentBlock = block.parent;
