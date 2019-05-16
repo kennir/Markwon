@@ -105,7 +105,10 @@ public class HtmlPlugin extends AbstractMarkwonPlugin {
 
     private void visitHtml(@NonNull MarkwonVisitor visitor, @Nullable String html) {
         if (html != null) {
-            visitor.configuration().htmlParser().processFragment(visitor.builder(), html);
+            StringBuilder output = new StringBuilder();
+//            visitor.configuration().htmlParser().processFragment(visitor.builder(), html);
+            visitor.configuration().htmlParser().processFragment(output, html);
+            visitor.builder().append(output.toString().trim());
         }
     }
 }
