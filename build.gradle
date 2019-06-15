@@ -67,7 +67,7 @@ ext {
             'android-svg'             : 'com.caverock:androidsvg:1.2.1',
             'android-gif'             : 'pl.droidsonroids.gif:android-gif-drawable:1.2.14',
             'jlatexmath-android'      : 'ru.noties:jlatexmath-android:0.1.0',
-            'okhttp'                  : 'com.squareup.okhttp3:okhttp:3.9.0',
+            'okhttp'                  : 'com.squareup.okhttp3:okhttp:3.12.2',
             'prism4j'                 : 'ru.noties:prism4j:1.1.0',
             'debug'                   : 'ru.noties:debug:3.0.0@jar',
             'adapt'                   : 'ru.noties:adapt:1.1.0',
