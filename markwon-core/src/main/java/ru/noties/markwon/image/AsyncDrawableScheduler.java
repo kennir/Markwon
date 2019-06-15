@@ -7,6 +7,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.text.Spanned;
 import android.text.style.DynamicDrawableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,23 +24,25 @@ public abstract class AsyncDrawableScheduler {
         final List<AsyncDrawable> list = extract(textView);
         if (list.size() > 0) {
 
-            if (textView.getTag(R.id.markwon_drawables_scheduler) == null) {
-                final View.OnAttachStateChangeListener listener = new View.OnAttachStateChangeListener() {
-                    @Override
-                    public void onViewAttachedToWindow(View v) {
-
-                    }
-
-                    @Override
-                    public void onViewDetachedFromWindow(View v) {
-                        unschedule(textView);
-                        v.removeOnAttachStateChangeListener(this);
-                        v.setTag(R.id.markwon_drawables_scheduler, null);
-                    }
-                };
-                textView.addOnAttachStateChangeListener(listener);
-                textView.setTag(R.id.markwon_drawables_scheduler, listener);
-            }
+//            if (textView.getTag(R.id.markwon_drawables_scheduler) == null) {
+//                final View.OnAttachStateChangeListener listener = new View.OnAttachStateChangeListener() {
+//                    @Override
+//                    public void onViewAttachedToWindow(View v) {
+//                        Log.d("Markwon:ImagePlugins", "onViewAttachedToWindow");
+//                    }
+//
+//                    @Override
+//                    public void onViewDetachedFromWindow(View v) {
+//                        Log.d("Markwon:ImagePlugins", "onViewDetachedFromWindow");
+//
+//                        unschedule(textView);
+//                        v.removeOnAttachStateChangeListener(this);
+//                        v.setTag(R.id.markwon_drawables_scheduler, null);
+//                    }
+//                };
+//                textView.addOnAttachStateChangeListener(listener);
+//                textView.setTag(R.id.markwon_drawables_scheduler, listener);
+//            }
 
             for (AsyncDrawable drawable : list) {
                 drawable.setCallback2(new DrawableCallbackImpl(textView, drawable.getBounds()));
